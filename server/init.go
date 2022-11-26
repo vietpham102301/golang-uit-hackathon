@@ -5,8 +5,10 @@ import (
 	"github.com/vietpham1023/golang-uit-hackathon/internal/repos"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/book"
 	campaign2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/campaign"
+
 	item2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/item"
 	merchant2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant"
+
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant_campaign"
 	provider2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/provider"
 	rule2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/rule"
@@ -50,5 +52,6 @@ func (s *Server) initRouters(serviceList *ServiceList) {
 	)
 
 	handler.ConfigureAPIRoute(s.router)
+	handler.ConfigureAPIMerchantRoute(s.router)
 
 }

@@ -1,6 +1,8 @@
 package repos
 
 import (
+	"context"
+	handlerModels "github.com/vietpham1023/golang-uit-hackathon/handler/models"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/models"
 	"gorm.io/gorm"
 )
@@ -37,4 +39,12 @@ func (m *MerchantCampaignSQLRepo) ListMerchantCampaignRepo(page int, size int, f
 		err = query.Table("merchant_campaigns").Order("id ASC").Find(&records).Error
 	}
 	return records, err
+}
+
+func (m *MerchantCampaignSQLRepo) Create(ctx context.Context, record *handlerModels.MerchantCampaign) error {
+	err := m.db.Create(record).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }

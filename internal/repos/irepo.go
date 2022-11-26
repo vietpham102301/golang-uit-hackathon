@@ -1,6 +1,8 @@
 package repos
 
 import (
+	"context"
+	handlerModels "github.com/vietpham1023/golang-uit-hackathon/handler/models"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/models"
 )
 
@@ -38,8 +40,15 @@ type ICampaignRepo interface {
 	Create(record *models.Campaign) (*models.Campaign, error)
 }
 
+type IMerchantRepo interface {
+	CreateMerchant(ctx context.Context, merchant *handlerModels.Merchant) error
+	FindByID(ctx context.Context, id int) (*handlerModels.Merchant, error)
+	ListByConditions(ctx context.Context, filter map[string]interface{}) ([]*handlerModels.Merchant, error)
+}
+
 type IMerchantCampaignRepo interface {
-	ListMerchantCampaignRepo(page int, size int, filter map[string]interface{}) ([]*models.MerchantCampaignResponse, error)
+	Create(ctx context.Context, record *handlerModels.MerchantCampaign) error
+  ListMerchantCampaignRepo(page int, size int, filter map[string]interface{}) ([]*models.MerchantCampaignResponse, error)
 }
 
 type IRuleRepo interface {
