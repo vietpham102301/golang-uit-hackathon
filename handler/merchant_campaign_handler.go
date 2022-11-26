@@ -8,7 +8,7 @@ import (
 
 func (h *Handler) listMerchantCampaignByFilter() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		fmt.Println("get book by filter...")
+		fmt.Println("get merchant CAMPAIGN by filter...")
 		q, data := ctx.Request.URL.Query(), map[string]string{}
 		for k, v := range q {
 			if len(v) > 0 {
@@ -16,17 +16,7 @@ func (h *Handler) listMerchantCampaignByFilter() gin.HandlerFunc {
 			}
 		}
 
-		records, err := h.merchantCampaign.ListByFilter(data)
-		if err != nil {
-			fmt.Printf("err: %v\n", err)
-			return
-		}
-		var campaignIDs []int64
-
-		for _, record := range records {
-			campaignIDs = append(campaignIDs, record.CampaignID)
-		}
-		campaigns, err := h.campaign.ListCampaignByIDs(campaignIDs)
+		res, err := h.merchantCampaign.ListByFilter(data)
 		if err != nil {
 			fmt.Printf("err: %v\n", err)
 			return
@@ -38,6 +28,6 @@ func (h *Handler) listMerchantCampaignByFilter() gin.HandlerFunc {
 			return
 		}
 
-		ctx.JSON(http.StatusOK, records)
+		ctx.JSON(http.StatusOK, res)
 	}
 }

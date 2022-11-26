@@ -9,6 +9,7 @@ import (
 
 type ICampaign interface {
 	ListCampaignByIDs(IDs []int64) ([]*models.Campaign, error)
+	CreateCampaign(record *models.Campaign) (*models.Campaign, error)
 }
 
 type Campaign struct {
@@ -29,5 +30,11 @@ func (c *Campaign) ListCampaignByIDs(IDs []int64) ([]*models.Campaign, error) {
 		fmt.Printf("fail to get campaign list from ids err: %v\n", err)
 		return nil, err
 	}
+
 	return records, nil
+}
+
+func (c *Campaign) CreateCampaign(record *models.Campaign) (*models.Campaign, error) {
+	record, err := c.repo.Campaign().Create(record)
+	return record, err
 }

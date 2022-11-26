@@ -7,7 +7,11 @@ import (
 	"github.com/vietpham1023/golang-uit-hackathon/config"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/book"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/campaign"
+	item2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/item"
+	"github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant_campaign"
+	"github.com/vietpham1023/golang-uit-hackathon/internal/services/provider"
+	rule2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/rule"
 	user2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/user"
 	"log"
 	"net/http"
@@ -21,6 +25,10 @@ type Handler struct {
 	user             user2.IUser
 	merchantCampaign merchant_campaign.IMerchantCampaign
 	campaign         campaign.ICampaign
+	rule             rule2.IRule
+	item             item2.IItem
+	merchant         merchant.IMerchant
+	provider         provider.IProvider
 }
 
 func NewHandler(
@@ -30,6 +38,10 @@ func NewHandler(
 	user user2.IUser,
 	merchantCampaign merchant_campaign.IMerchantCampaign,
 	campaign campaign.ICampaign,
+	rule rule2.IRule,
+	item item2.IItem,
+	merchant merchant.IMerchant,
+	provider provider.IProvider,
 ) *Handler {
 	return &Handler{
 		cfg:              cfg,
@@ -38,6 +50,10 @@ func NewHandler(
 		user:             user,
 		merchantCampaign: merchantCampaign,
 		campaign:         campaign,
+		rule:             rule,
+		item:             item,
+		merchant:         merchant,
+		provider:         provider,
 	}
 }
 
@@ -82,6 +98,10 @@ func (h *Handler) ConfigureAPIRoute(router *gin.Engine) {
 	routers.POST("/login", h.logInUser())
 	routers.Use(h.APIAuthentication())
 	//routers.GET("/book/list", h.listBookByFilter())
+
+	//Merchant
 	routers.GET("merchant-campaign/list", h.listMerchantCampaignByFilter())
+	routers.GET("item/list", h.getItemsByProviderID())
+	routers.POST("campaign", h.createCampaign())
 
 }

@@ -31,3 +31,19 @@ func (r *Repo) MerchantCampaign() IMerchantCampaignRepo {
 func (r *Repo) Campaign() ICampaignRepo {
 	return NewCampaignSQLRepo(r.db)
 }
+
+func (r *Repo) Rule() IRuleRepo {
+	return NewRuleSQLRepo(r.db)
+}
+
+func (r *Repo) Item() IItemRepo {
+	return NewItemSQLRepo(r.db)
+}
+
+func (r *Repo) Merchant() IMerchantRepo {
+	return NewMerchantSQLRepo(r.db)
+}
+
+func (r *Repo) Provider() IProviderRepo {
+	return NewProviderSQLRepo(r.db)
+}
