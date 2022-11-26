@@ -7,6 +7,7 @@ import (
 	"github.com/vietpham1023/golang-uit-hackathon/config"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/book"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/campaign"
+	merchantService "github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant_campaign"
 	user2 "github.com/vietpham1023/golang-uit-hackathon/internal/services/user"
 	"log"
@@ -21,6 +22,7 @@ type Handler struct {
 	user             user2.IUser
 	merchantCampaign merchant_campaign.IMerchantCampaign
 	campaign         campaign.ICampaign
+	merchant         merchantService.IMerchant
 }
 
 func NewHandler(
@@ -30,6 +32,7 @@ func NewHandler(
 	user user2.IUser,
 	merchantCampaign merchant_campaign.IMerchantCampaign,
 	campaign campaign.ICampaign,
+	merchant merchantService.IMerchant,
 ) *Handler {
 	return &Handler{
 		cfg:              cfg,
@@ -38,6 +41,7 @@ func NewHandler(
 		user:             user,
 		merchantCampaign: merchantCampaign,
 		campaign:         campaign,
+		merchant:         merchant,
 	}
 }
 
@@ -80,8 +84,24 @@ func (h *Handler) ConfigureAPIRoute(router *gin.Engine) {
 
 	routers.POST("/signup", h.createUser())
 	routers.POST("/login", h.logInUser())
-	routers.Use(h.APIAuthentication())
+	//routers.Use(h.APIAuthentication())
 	//routers.GET("/book/list", h.listBookByFilter())
 	routers.GET("merchant-campaign/list", h.listMerchantCampaignByFilter())
 
+}
+
+func (h *Handler) ConfigureAPIMerchantRoute(r *gin.Engine) {
+
+	v1 := r.Group("v1")
+	merchant := v1.Group("/merchant")
+	{
+		merchant.POST("", h.createMerchant())
+		merchant.GET("/:id", h.getMerchantByID())
+		merchant.GET("", h.ListMerchantByCondition())
+	}
+
+	merchantCampaign := v1.Group("/merchant-campaign")
+	{
+		merchantCampaign.POST("", h.createMerchantCampaign())
+	}
 }

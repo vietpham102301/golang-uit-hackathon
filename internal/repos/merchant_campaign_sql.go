@@ -1,6 +1,8 @@
 package repos
 
 import (
+	"context"
+	handlerModels "github.com/vietpham1023/golang-uit-hackathon/handler/models"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/models"
 	"gorm.io/gorm"
 )
@@ -24,9 +26,21 @@ func (m *MerchantCampaignSQLRepo) ListMerchantCampaignRepo(page int, size int, f
 	var err error
 	if page != -1 && size != -1 {
 		offset := (page - 1) * size
-		err = query.Order("created_at DESC").Limit(size).Offset(offset).Find(&records).Error
+		err = query.
+			Order("created_at DESC").
+			Limit(size).
+			Offset(offset).
+			Find(&records).Error
 	} else {
 		err = query.Order("created_at DESC").Find(&records).Error
 	}
 	return records, err
+}
+
+func (m *MerchantCampaignSQLRepo) Create(ctx context.Context, record *handlerModels.MerchantCampaign) error {
+	err := m.db.Create(record).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }

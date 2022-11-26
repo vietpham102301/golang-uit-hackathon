@@ -1,14 +1,17 @@
 package merchant_campaign
 
 import (
+	"context"
 	"fmt"
 	"github.com/vietpham1023/golang-uit-hackathon/config"
+	handlerModels "github.com/vietpham1023/golang-uit-hackathon/handler/models"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/models"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/repos"
 )
 
 type IMerchantCampaign interface {
 	ListByFilter(data map[string]string) ([]*models.MerchantCampaign, error)
+	Create(ctx context.Context, record *handlerModels.MerchantCampaign) error
 }
 
 type MerchantCampaign struct {
@@ -31,4 +34,13 @@ func (m *MerchantCampaign) ListByFilter(data map[string]string) ([]*models.Merch
 		return nil, err
 	}
 	return records, nil
+}
+
+func (m *MerchantCampaign) Create(ctx context.Context, record *handlerModels.MerchantCampaign) error {
+	err := m.repo.MerchantCampaign().Create(ctx, record)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

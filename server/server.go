@@ -8,6 +8,7 @@ import (
 	"github.com/vietpham1023/golang-uit-hackathon/internal/repos"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/book"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/campaign"
+	merchantService "github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant_campaign"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/user"
 	"go.uber.org/zap"
@@ -27,6 +28,7 @@ type ServiceList struct {
 	user             user.IUser
 	merchantCampaign merchant_campaign.IMerchantCampaign
 	campaign         campaign.ICampaign
+	merchant         merchantService.IMerchant
 }
 
 func NewServer(cfg *config.AppConfig) (*Server, error) {
