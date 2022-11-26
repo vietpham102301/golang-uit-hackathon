@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.8.1
+	github.com/google/uuid v1.3.0
 	github.com/jinzhu/copier v0.3.5
 	go.uber.org/zap v1.23.0
 	gopkg.in/yaml.v2 v2.4.0

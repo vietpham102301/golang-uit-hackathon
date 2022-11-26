@@ -7,6 +7,9 @@ import (
 	"github.com/vietpham1023/golang-uit-hackathon/infra"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/repos"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/services/book"
+	"github.com/vietpham1023/golang-uit-hackathon/internal/services/campaign"
+	"github.com/vietpham1023/golang-uit-hackathon/internal/services/merchant_campaign"
+	"github.com/vietpham1023/golang-uit-hackathon/internal/services/user"
 	"go.uber.org/zap"
 	"net/http"
 	"os"
@@ -20,7 +23,10 @@ type Server struct {
 }
 
 type ServiceList struct {
-	book book.IBook
+	book             book.IBook
+	user             user.IUser
+	merchantCampaign merchant_campaign.IMerchantCampaign
+	campaign         campaign.ICampaign
 }
 
 func NewServer(cfg *config.AppConfig) (*Server, error) {

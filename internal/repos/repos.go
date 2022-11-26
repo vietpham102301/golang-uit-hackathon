@@ -15,3 +15,19 @@ func NewSQLRepo(db *gorm.DB) IRepo {
 func (r *Repo) Book() IBookRepo {
 	return NewBookSQLRepo(r.db)
 }
+
+func (r *Repo) User() IUserRepo {
+	return NewUserSQLRepo(r.db)
+}
+
+func (r *Repo) Citizen() ICitizenRepo {
+	return NewCitizenSQLRepo(r.db)
+}
+
+func (r *Repo) MerchantCampaign() IMerchantCampaignRepo {
+	return NewMerchantCampaignSQLRepo(r.db)
+}
+
+func (r *Repo) Campaign() ICampaignRepo {
+	return NewCampaignSQLRepo(r.db)
+}
