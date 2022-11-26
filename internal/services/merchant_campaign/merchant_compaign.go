@@ -10,8 +10,8 @@ import (
 )
 
 type IMerchantCampaign interface {
-	ListByFilter(data map[string]string) ([]*models.MerchantCampaign, error)
 	Create(ctx context.Context, record *handlerModels.MerchantCampaign) error
+	ListByFilter(data map[string]string) ([]*models.MerchantCampaignResponse, error)
 }
 
 type MerchantCampaign struct {
@@ -26,9 +26,10 @@ func NewMerchantCampaign(appConfig *config.AppConfig, repo repos.IRepo) IMerchan
 	}
 }
 
-func (m *MerchantCampaign) ListByFilter(data map[string]string) ([]*models.MerchantCampaign, error) {
+func (m *MerchantCampaign) ListByFilter(data map[string]string) ([]*models.MerchantCampaignResponse, error) {
 	page, size, filter := getFilterList(data)
 	records, err := m.repo.MerchantCampaign().ListMerchantCampaignRepo(page, size, filter)
+
 	if err != nil {
 		fmt.Printf("list book fail with err: %v\n", err)
 		return nil, err

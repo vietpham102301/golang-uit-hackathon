@@ -20,3 +20,8 @@ func (r RuleSQLRepo) ListRuleByIDs(IDs []int64) ([]*models.Rule, error) {
 	err := r.db.Where("id in (?)", IDs).First(&records).Error
 	return records, err
 }
+
+func (r RuleSQLRepo) Create(record *models.Rule) (*models.Rule, error) {
+	err := r.db.Create(record).Error
+	return record, err
+}

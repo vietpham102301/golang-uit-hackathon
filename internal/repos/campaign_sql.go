@@ -17,6 +17,11 @@ func NewCampaignSQLRepo(db *gorm.DB) ICampaignRepo {
 
 func (c CampaignSQLRepo) ListCampaignByIDs(IDs []int64) ([]*models.Campaign, error) {
 	var records []*models.Campaign
-	err := c.db.Where("id in (?)", IDs).Find(&records).Error
+	err := c.db.Where("id in (?)", IDs).Order("").Find(&records).Error
 	return records, err
+}
+
+func (c CampaignSQLRepo) Create(record *models.Campaign) (*models.Campaign, error) {
+	err := c.db.Create(record).Error
+	return record, err
 }

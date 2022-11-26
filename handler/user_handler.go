@@ -26,6 +26,25 @@ func (h *Handler) createUser() gin.HandlerFunc {
 			return
 		}
 		record, err = h.user.CreateUser(record)
+		if record.Role == 3 {
+			_, err := h.provider.Create(&models2.Provider{
+				ID:           record.ID,
+				ProviderName: record.ProviderName,
+			})
+			if err != nil {
+				return
+			}
+		}
+
+		if record.Role == 2 {
+			_, err := h.merchant.Create(&models2.Merchant{
+				ID:           record.ID,
+				MerchantName: record.MerchantName,
+			})
+			if err != nil {
+				return
+			}
+		}
 
 		if err != nil {
 			ctx.JSON(http.StatusBadRequest, err)

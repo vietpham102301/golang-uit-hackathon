@@ -1,8 +1,12 @@
 package repos
 
 import (
+
 	"context"
 	handlerModels "github.com/vietpham1023/golang-uit-hackathon/handler/models"
+
+	"github.com/vietpham1023/golang-uit-hackathon/internal/models"
+
 	"gorm.io/gorm"
 )
 
@@ -15,6 +19,7 @@ func NewMerchantSQLRepo(db *gorm.DB) IMerchantRepo {
 		db: db,
 	}
 }
+
 
 func (m MerchantSQLRepo) CreateMerchant(ctx context.Context, merchant *handlerModels.Merchant) error {
 	err := m.db.Create(merchant).Error
@@ -31,4 +36,14 @@ func (m MerchantSQLRepo) ListByConditions(ctx context.Context, filter map[string
 	var merchant []*handlerModels.Merchant
 	err := m.db.Table("merchants").Where(filter).First(&merchant).Error
 	return merchant, err
+
+func (r MerchantSQLRepo) ListMerchantByIDs(IDs []int64) ([]*models.Merchant, error) {
+	var records []*models.Merchant
+	err := r.db.Where("id in (?)", IDs).First(&records).Error
+	return records, err
+}
+
+func (r MerchantSQLRepo) Create(record *models.Merchant) (*models.Merchant, error) {
+	err := r.db.Create(record).Error
+	return record, err
 }

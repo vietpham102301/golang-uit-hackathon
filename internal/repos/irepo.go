@@ -13,7 +13,9 @@ type IRepo interface {
 	MerchantCampaign() IMerchantCampaignRepo
 	Campaign() ICampaignRepo
 	Rule() IRuleRepo
+	Item() IItemRepo
 	Merchant() IMerchantRepo
+	Provider() IProviderRepo
 }
 
 type IBookRepo interface {
@@ -35,6 +37,7 @@ type ICitizenRepo interface {
 
 type ICampaignRepo interface {
 	ListCampaignByIDs(IDs []int64) ([]*models.Campaign, error)
+	Create(record *models.Campaign) (*models.Campaign, error)
 }
 
 type IMerchantRepo interface {
@@ -44,10 +47,26 @@ type IMerchantRepo interface {
 }
 
 type IMerchantCampaignRepo interface {
-	ListMerchantCampaignRepo(page int, size int, filter map[string]interface{}) ([]*models.MerchantCampaign, error)
 	Create(ctx context.Context, record *handlerModels.MerchantCampaign) error
+  ListMerchantCampaignRepo(page int, size int, filter map[string]interface{}) ([]*models.MerchantCampaignResponse, error)
 }
 
 type IRuleRepo interface {
 	ListRuleByIDs(IDs []int64) ([]*models.Rule, error)
+	Create(record *models.Rule) (*models.Rule, error)
+}
+
+type IItemRepo interface {
+	ListItemByIDs(IDs []int64) ([]*models.Item, error)
+	GetItemByProviderID(providerID int) ([]*models.Item, error)
+}
+
+type IMerchantRepo interface {
+	ListMerchantByIDs(IDs []int64) ([]*models.Merchant, error)
+	Create(record *models.Merchant) (*models.Merchant, error)
+}
+
+type IProviderRepo interface {
+	ListProviderByIDs(IDs []int64) ([]*models.Provider, error)
+	Create(record *models.Provider) (*models.Provider, error)
 }
