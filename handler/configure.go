@@ -83,7 +83,7 @@ func (h *Handler) ConfigureAPIRoute(router *gin.Engine) {
 		if err != nil {
 			fmt.Printf("error when save file!!: %v\n", err)
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"message": "Unable to save the file",
+				"message": "Unable to save the file smt",
 			})
 			return
 		}
