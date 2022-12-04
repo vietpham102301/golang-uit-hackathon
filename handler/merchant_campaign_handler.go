@@ -31,3 +31,24 @@ func (h *Handler) listMerchantCampaignByFilter() gin.HandlerFunc {
 		ctx.JSON(http.StatusOK, res)
 	}
 }
+
+//func (h *Handler) createMerchantCampaign() gin.HandlerFunc {
+//	return func(ctx *gin.Context) {
+//		fmt.Println("get book by filter...")
+//		var merchantCampaign *models2.MerchantCampaign
+//		err := ctx.ShouldBind(merchantCampaign)
+//		if err != nil {
+//			ctx.JSON(http.StatusBadRequest, err)
+//			return
+//		}
+//
+//		err = h.merchantCampaign.Create(ctx, merchantCampaign)
+//		if err != nil {
+//			ctx.JSON(http.StatusInternalServerError, err)
+//			return
+//		}
+//
+//		ctx.JSON(http.StatusOK, nil)
+//		return
+//	}
+//}

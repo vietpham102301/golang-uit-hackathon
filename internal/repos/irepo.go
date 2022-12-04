@@ -55,6 +55,8 @@ type IItemRepo interface {
 type IMerchantRepo interface {
 	ListMerchantByIDs(IDs []int64) ([]*models.Merchant, error)
 	Create(record *models.Merchant) (*models.Merchant, error)
+	FindByID(id int) (*models.Merchant, error)
+	ListByConditions(filter map[string]interface{}) ([]*models.Merchant, error)
 }
 
 type IProviderRepo interface {
