@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"github.com/vietpham1023/golang-uit-hackathon/config"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/models"
 	"github.com/vietpham1023/golang-uit-hackathon/internal/repos"
@@ -36,8 +37,15 @@ func (u User) CreateUser(record *models.User) (*models.User, error) {
 
 func (u User) Login(user *models.User) (*models.User, error) {
 	record, err := u.repo.User().Login(user)
-	citizen, err := u.repo.Citizen().GetByID(record.CitizenID)
-	record.Citizen = citizen
+	if record.Role == 1 {
+		citizen, err := u.repo.Citizen().GetByID(record.CitizenID)
+		if err != nil {
+			fmt.Println("FAIL!!")
+			return nil, err
+		}
+		record.Citizen = citizen
+	}
+
 	return record, err
 }
 

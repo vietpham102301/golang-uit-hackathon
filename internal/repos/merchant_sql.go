@@ -25,3 +25,15 @@ func (r MerchantSQLRepo) Create(record *models.Merchant) (*models.Merchant, erro
 	err := r.db.Create(record).Error
 	return record, err
 }
+
+func (m MerchantSQLRepo) FindByID(id int) (*models.Merchant, error) {
+	var merchant models.Merchant
+	err := m.db.Where("id = ?", id).First(&merchant).Error
+	return &merchant, err
+}
+
+func (m MerchantSQLRepo) ListByConditions(filter map[string]interface{}) ([]*models.Merchant, error) {
+	var merchant []*models.Merchant
+	err := m.db.Table("merchants").Where(filter).First(&merchant).Error
+	return merchant, err
+}

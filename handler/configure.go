@@ -100,8 +100,9 @@ func (h *Handler) ConfigureAPIRoute(router *gin.Engine) {
 	//routers.GET("/book/list", h.listBookByFilter())
 
 	//Merchant
-	routers.GET("merchant-campaign/list", h.listMerchantCampaignByFilter())
-	routers.GET("item/list", h.getItemsByProviderID())
-	routers.POST("campaign", h.createCampaign())
-
+	routers.GET("/merchant-campaign/list", h.listMerchantCampaignByFilter())
+	routers.GET("/item/list", h.getItemsByProviderID())
+	routers.POST("/campaign", h.createCampaign())
+	routers.GET("/merchant/:id", h.getMerchantByID())
+	//routers.POST("merchant-campaign", h.cre)
 }

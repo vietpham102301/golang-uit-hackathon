@@ -33,3 +33,11 @@ func (m *MerchantCampaign) ListByFilter(data map[string]string) ([]*models.Merch
 	}
 	return records, nil
 }
+
+//func (m *MerchantCampaignSQLRepo) Create(ctx context.Context, record *handlerModels.MerchantCampaign) error {
+//	err := m.db.Create(record).Error
+//	if err != nil {
+//		return err
+//	}
+//	return nil
+//}
