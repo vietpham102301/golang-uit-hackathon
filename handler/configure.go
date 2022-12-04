@@ -96,7 +96,7 @@ func (h *Handler) ConfigureAPIRoute(router *gin.Engine) {
 
 	routers.POST("/signup", h.createUser())
 	routers.POST("/login", h.logInUser())
-	routers.Use(h.APIAuthentication())
+	//routers.Use(h.APIAuthentication())
 	//routers.GET("/book/list", h.listBookByFilter())
 
 	//Merchant

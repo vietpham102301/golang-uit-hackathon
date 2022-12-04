@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
@@ -39,6 +40,7 @@ func Load(filePath string) (*AppConfig, error) {
 	configBytes, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		sugar.Error("Failed to load config file")
+		fmt.Printf("err: %v \n", err)
 		return nil, err
 	}
 
